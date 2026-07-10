@@ -525,45 +525,76 @@
   sections.forEach(s=>navIo.observe(s));
 </script>
 <script>
-  // --- HIỆU ỨNG ĐỘNG: CÁNH HOA ĐÀO RƠI TRÊN NỀN BÀI VIẾT ---
-  function createSakura() {
-    const sakura = document.createElement('div');
-    sakura.style.position = 'fixed';
-    sakura.style.top = '-10px';
-    // Phát ngẫu nhiên vị trí xuất hiện theo chiều ngang màn hình
-    sakura.style.left = Math.random() * 100 + 'vw'; 
-    // Kích thước ngẫu nhiên từ 8px đến 16px
-    const size = Math.random() * 8 + 8;
-    sakura.style.width = size + 'px';
-    sakura.style.height = size + 'px';
-    // Sử dụng màu hồng cánh hoa đào đậm tạo độ tương phản tốt với nền
-    sakura.style.backgroundColor = '#EFA0BB'; 
-    sakura.style.borderRadius = '50% 0 50% 50%'; // Tạo hình dáng giống cánh hoa
-    sakura.style.opacity = Math.random() * 0.5 + 0.4;
-    sakura.style.pointerEvents = 'none';
-    sakura.style.zIndex = '0'; // Nằm dưới các thẻ nội dung chính
-    
-    // Tạo chuyển động ngẫu nhiên bằng CSS Animation trực tiếp
-    const duration = Math.random() * 6 + 6; // Thời gian rơi từ 6s - 12s
-    const spin = Math.random() * 360;
-    
-    sakura.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
-    document.body.appendChild(sakura);
+  // === HOẠT HỌA CÁNH HOA ĐÀO RƠI - PHÁT TRIỂN CHUẨN GEMINI CODE ===
+  const sakuraContainer = document.createElement('div');
+  sakuraContainer.id = 'sakura-container';
+  document.body.appendChild(sakuraContainer);
 
-    // Kích hoạt hiệu ứng rơi và lắc lư sau khi phần tử được thêm vào DOM
-    setTimeout(() => {
-      sakura.style.transform = `translateY(105vh) translateX(${(Math.random() - 0.5) * 200}px) rotate(${spin + 720}deg)`;
-      sakura.style.opacity = '0';
-    }, 50);
+  const maxPetals = 35; // Số lượng cánh hoa hiển thị cùng lúc tối ưu nhất để mượt mà
+  const petals = [];
 
-    // Xóa cánh hoa sau khi rơi hoàn tất để tránh làm nặng trang web
-    setTimeout(() => {
-      sakura.remove();
-    }, duration * 1000);
+  function createPetal() {
+    const el = document.createElement('div');
+    el.className = 'sakura-petal';
+    sakuraContainer.appendChild(el);
+    
+    const size = Math.random() * 8 + 8; // Kích thước ngẫu nhiên từ 8px - 16px
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    
+    return {
+      el: el,
+      x: Math.random() * window.innerWidth,
+      y: -20,
+      size: size,
+      speedY: Math.random() * 1.2 + 0.6,    // Vận tốc rơi dọc nhẹ nhàng lãng mạn
+      speedX: Math.random() * 0.6 + 0.2,    // Hướng gió đẩy nhẹ sang bên phải
+      rotation: Math.random() * 360,
+      rotSpeed: Math.random() * 1.5 - 0.75, // Vận tốc tự xoay quanh trục ngẫu nhiên
+      opacity: Math.random() * 0.3 + 0.6    // Độ mờ từ 0.6 đến 0.9 giúp giữ sắc hồng dịu dàng
+    };
   }
 
-  // Cứ mỗi 600 mili-giây (0.6 giây) sẽ tự tạo thêm một cánh hoa mới
-  setInterval(createSakura, 600);
+  // Khởi tạo các vị trí ngẫu nhiên ban đầu để cánh hoa rải đều màn hình khi vừa mở trang
+  for (let i = 0; i < maxPetals; i++) {
+    const p = createPetal();
+    p.y = Math.random() * window.innerHeight;
+    petals.push(p);
+  }
+
+  function updatePetals() {
+    petals.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.rotation += p.rotSpeed;
+      
+      // Nếu cánh hoa trôi ra khỏi màn hình, đưa trở lại đỉnh đầu để tái sử dụng
+      if (p.y > window.innerHeight + 20 || p.x > window.innerWidth + 20) {
+        p.y = -20;
+        p.x = Math.random() * window.innerWidth;
+        p.speedY = Math.random() * 1.2 + 0.6;
+        p.speedX = Math.random() * 0.6 + 0.2;
+      }
+      
+      // Cập nhật vị trí và hiệu ứng xoay 3D bằng Transform phối hợp mượt mà
+      p.el.style.top = p.y + 'px';
+      p.el.style.left = p.x + 'px';
+      p.el.style.transform = `rotate(${p.rotation}deg) rotateX(${p.rotation * 0.3}deg)`;
+      p.el.style.opacity = p.opacity;
+    });
+    
+    requestAnimationFrame(updatePetals);
+  }
+
+  // Khởi chạy vòng lặp hoạt họa hiệu năng cao
+  requestAnimationFrame(updatePetals);
+
+  // Xử lý khi co giãn kích thước cửa sổ trình duyệt để giữ vị trí hợp lý
+  window.addEventListener('resize', () => {
+    petals.forEach(p => {
+      if (p.x > window.innerWidth) p.x = Math.random() * window.innerWidth;
+    });
+  });
 </script>
 </body>
 </html>
