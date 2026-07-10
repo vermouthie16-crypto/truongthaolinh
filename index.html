@@ -524,5 +524,46 @@
   }, { threshold: 0.3 });
   sections.forEach(s=>navIo.observe(s));
 </script>
+<script>
+  // --- HIỆU ỨNG ĐỘNG: CÁNH HOA ĐÀO RƠI TRÊN NỀN BÀI VIẾT ---
+  function createSakura() {
+    const sakura = document.createElement('div');
+    sakura.style.position = 'fixed';
+    sakura.style.top = '-10px';
+    // Phát ngẫu nhiên vị trí xuất hiện theo chiều ngang màn hình
+    sakura.style.left = Math.random() * 100 + 'vw'; 
+    // Kích thước ngẫu nhiên từ 8px đến 16px
+    const size = Math.random() * 8 + 8;
+    sakura.style.width = size + 'px';
+    sakura.style.height = size + 'px';
+    // Sử dụng màu hồng cánh hoa đào đậm tạo độ tương phản tốt với nền
+    sakura.style.backgroundColor = '#EFA0BB'; 
+    sakura.style.borderRadius = '50% 0 50% 50%'; // Tạo hình dáng giống cánh hoa
+    sakura.style.opacity = Math.random() * 0.5 + 0.4;
+    sakura.style.pointerEvents = 'none';
+    sakura.style.zIndex = '0'; // Nằm dưới các thẻ nội dung chính
+    
+    // Tạo chuyển động ngẫu nhiên bằng CSS Animation trực tiếp
+    const duration = Math.random() * 6 + 6; // Thời gian rơi từ 6s - 12s
+    const spin = Math.random() * 360;
+    
+    sakura.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
+    document.body.appendChild(sakura);
+
+    // Kích hoạt hiệu ứng rơi và lắc lư sau khi phần tử được thêm vào DOM
+    setTimeout(() => {
+      sakura.style.transform = `translateY(105vh) translateX(${(Math.random() - 0.5) * 200}px) rotate(${spin + 720}deg)`;
+      sakura.style.opacity = '0';
+    }, 50);
+
+    // Xóa cánh hoa sau khi rơi hoàn tất để tránh làm nặng trang web
+    setTimeout(() => {
+      sakura.remove();
+    }, duration * 1000);
+  }
+
+  // Cứ mỗi 600 mili-giây (0.6 giây) sẽ tự tạo thêm một cánh hoa mới
+  setInterval(createSakura, 600);
+</script>
 </body>
 </html>
