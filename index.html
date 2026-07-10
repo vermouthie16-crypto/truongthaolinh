@@ -76,11 +76,11 @@
     pointer-events: none; z-index: 1; overflow: hidden;
   }
   .sakura-petal {
-    position: absolute; background: linear-gradient(135deg, #FFEAF1, #FAD4E0);
-    border-radius: 90% 10% 90% 10% / 90% 10% 90% 10%;
+    position: absolute; background: linear-gradient(135deg, #FFE5EE, #FBAEC6);
+    border-radius: 90% 15% 90% 15% / 90% 15% 90% 15%;
     transform-origin: center;
     will-change: transform, top, left;
-    filter: drop-shadow(0 2px 4px rgba(239,160,187,0.15));
+    filter: drop-shadow(0 2px 5px rgba(220,130,160,0.3));
   }
 
   /* Lớp layout nội dung luôn đè lên trên hoa rơi */
@@ -511,22 +511,22 @@
 </div>
 
 <script>
-  // ----- LOGIC ĐIỀU KHIỂN CÁNH HOA RƠI NHẸ NHÀNG TRONG NỀN -----
+  // ----- CẤU HÌNH HOA ĐÀO RƠI: DÀY HƠN, RÕ NÉT HƠN -----
   const container = document.getElementById('sakura-container');
-  const maxPetals = 30; // Giảm bớt số lượng tệp cánh hoa để giao diện thoáng đãng
+  const maxPetals = 75; // Tăng số lượng cánh hoa đồng thời xuất hiện từ 30 lên 75
   const petals = [];
 
   function createPetal() {
     const el = document.createElement('div');
     el.className = 'sakura-petal';
     
-    // Tối ưu kích thước cánh hoa vừa vặn và đồng đều
-    const size = Math.random() * 10 + 7;
+    // Tăng size cánh hoa to rõ hơn (từ 12px đến 22px)
+    const size = Math.random() * 10 + 12;
     el.style.width = `${size}px`;
-    el.style.height = `${size + Math.random() * 5}px`;
+    el.style.height = `${size + Math.random() * 6}px`;
 
     const x = Math.random() * window.innerWidth * 1.2 - (window.innerWidth * 0.1);
-    const y = -30;
+    const y = -40;
     
     el.style.left = `${x}px`;
     el.style.top = `${y}px`;
@@ -536,17 +536,17 @@
       el,
       x,
       y,
-      speedY: Math.random() * 0.7 + 0.5,    // Hạ thấp tốc độ rơi giúp hoa bay nhẹ và chậm rãi hơn
-      speedX: Math.random() * 0.5 + 0.3,    // Độ lướt ngang nhẹ nhàng
+      speedY: Math.random() * 0.8 + 0.6,     // Giữ nhịp rơi nhẹ, chậm lãng mạn
+      speedX: Math.random() * 0.6 + 0.3,     // Độ bay xiên nhẹ theo chiều gió
       rotation: Math.random() * 360,
-      rotSpeed: (Math.random() * 1.0 - 0.5),
-      opacity: Math.random() * 0.3 + 0.4    // Độ trong suốt nhẹ nhàng ở nền phẳng (0.4 - 0.7)
+      rotSpeed: (Math.random() * 1.2 - 0.6),
+      opacity: Math.random() * 0.3 + 0.6     // Tăng độ hiển thị đậm nét lên (0.6 - 0.9) thay vì mờ nhạt
     };
   }
 
   for (let i = 0; i < maxPetals; i++) {
     const p = createPetal();
-    p.y = Math.random() * window.innerHeight; // Phân bổ đều chiều cao lúc ban đầu
+    p.y = Math.random() * window.innerHeight; // Trải đều vị trí hoa trên màn hình lúc mới load trang
     petals.push(p);
   }
 
@@ -565,13 +565,13 @@
       p.el.style.opacity = p.opacity;
       p.el.style.transform = `rotate(${p.rotation}deg) rotateX(${p.rotation * 0.2}deg)`;
 
-      // Tạo vòng lặp vô hạn khi hoa rơi hết tầm nhìn
-      if (p.y > height + 20 || p.x > width + 20) {
-        p.y = -30;
+      // Reset khi hoa rơi qua đáy màn hình
+      if (p.y > height + 30 || p.x > width + 30) {
+        p.y = -40;
         p.x = Math.random() * width * 1.1 - (width * 0.1);
-        p.speedY = Math.random() * 0.7 + 0.5;
-        p.speedX = Math.random() * 0.5 + 0.3;
-        p.opacity = Math.random() * 0.3 + 0.4;
+        p.speedY = Math.random() * 0.8 + 0.6;
+        p.speedX = Math.random() * 0.6 + 0.3;
+        p.opacity = Math.random() * 0.3 + 0.6;
       }
     }
     requestAnimationFrame(updatePetals);
