@@ -56,7 +56,7 @@
     mix-blend-mode: multiply; opacity: 0; transition: opacity 0.3s ease;
   }
 
-  .layout{ position: relative; z-index: 1; min-height: 100vh; }
+  .layout{ position: relative; z-index: 2; min-height: 100vh; }
 
   /* ===== top bar — small, rounded, floating ===== */
   .topbar{
@@ -151,9 +151,9 @@
     font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 3.2rem; color: var(--pink-mid);
     width: 100%; height: 100%; align-items: center; justify-content: center;
   }
- .photo-sticker{
+  .photo-sticker{
     position: absolute; width: 42px; height: 42px;
-    display: flex; align-items: center; justify-content: center; font-size: 1.6rem; /* Tăng nhẹ cỡ chữ để sticker trông rõ hơn khi bỏ nền */
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
     animation: stickerWiggle 4s ease-in-out infinite;
   }
   .sticker-1{ bottom: -14px; left: -14px; }
@@ -231,8 +231,14 @@
     .t-card{ max-width: 100%; }
   }
 
-  /* ===== tong ket — accordion ===== */
-  .acc-wrap{ max-width: 720px; margin: 0 auto 46px; display: flex; flex-direction: column; gap: 14px; }
+  /* ===== tong ket — tabs & accordion ===== */
+  .tk-tabs-header { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+  .tk-tab { padding: 10px 22px; border-radius: 999px; background: var(--white-soft); font-weight: 700; font-size: 0.88rem; cursor: pointer; box-shadow: var(--shadow-soft); transition: all 0.3s; }
+  .tk-tab.active { background: var(--pink-mid); color: white; }
+  .tk-panel { display: none; }
+  .tk-panel.active { display: block; }
+
+  .acc-wrap{ max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
   details.acc-item{
     background: var(--white-soft); border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); overflow: hidden;
   }
@@ -249,7 +255,16 @@
   details.acc-item[open] .acc-plus{ transform: rotate(45deg); background: var(--green-pale); }
   .acc-body{ padding: 0 24px 22px; font-size: 0.9rem; line-height: 1.8; color: var(--ink-soft); text-align: justify; }
 
-  .summary-stats{ display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px; max-width: 640px; margin: 0 auto; text-align: center; }
+  .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; max-width: 720px; margin: 0 auto; }
+  .chart-box { background: var(--white-soft); padding: 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); text-align: center; }
+  .svg-circle { transform: rotate(-90deg); }
+  .circle-bg { fill: none; stroke: var(--pink-pale); stroke-width: 8; }
+  .circle-bar { fill: none; stroke: var(--pink-mid); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 339.3; stroke-dashoffset: 339.3; transition: stroke-dashoffset 1.5s ease-out; }
+  .chart-box:nth-child(2n) .circle-bar { stroke: var(--green-mid); }
+  .chart-box:nth-child(2n) .circle-bg { stroke: var(--green-pale); }
+  .chart-text { font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 700; color: var(--ink); }
+
+  .summary-stats{ display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px; max-width: 640px; margin: 34px auto 0; text-align: center; }
   .stat{ padding: 12px; border-radius: 16px; transition: transform 0.3s ease; }
   .stat .num{
     font-family: 'Baloo 2', cursive; font-size: 1.9rem; color: var(--pink-mid); display: inline-block;
@@ -273,6 +288,26 @@
     .sb-nav{ margin: 0; order: 3; width: 100%; justify-content: center; }
     .sb-drive{ display: none; }
     .content{ padding-top: 128px; }
+  }
+
+  /* ===== HIỆU ỨNG CÁNH HOA ĐÀO RƠI ===== */
+  #sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .sakura-petal {
+    position: absolute;
+    background: linear-gradient(135deg, #FFE5EE, #FBAEC6);
+    border-radius: 90% 15% 90% 15% / 90% 15% 90% 15%;
+    transform-origin: center;
+    will-change: transform, top, left;
+    filter: drop-shadow(0 2px 5px rgba(220,130,160,0.25));
   }
 </style>
 </head>
@@ -329,7 +364,7 @@
       </div>
 
       <div class="narrative-card reveal">
-        <h3>💮 Mục tiêu học tập và phát triển</h3>
+        <h3>🎯 Mục tiêu học tập và phát triển</h3>
         <p>Tham gia học phần này, mình tự đặt ra cho bản thân những cột mốc để bứt phá và nâng cấp tư duy:</p>
         <ul class="goal-list">
           <li>Học cách "cộng tác" với AI để biến các mô hình trí tuệ nhân tạo thành trợ lý đắc lực trong việc tra cứu, biên dịch và nghiên cứu văn hóa.</li>
@@ -340,7 +375,7 @@
       </div>
 
       <div class="narrative-card reveal">
-        <h3>🔔 Mục tiêu của Portfolio</h3>
+        <h3>🎯 Mục tiêu của Portfolio</h3>
         <p>Portfolio này là nơi mình lưu lại từng chặng đường nhỏ trong quá trình học tập. Thông qua đó, mình mong muốn:</p>
         <ul class="goal-list">
           <li>Đóng gói và trưng bày tất cả các sản phẩm số, các dự án thực hành mà mình đã tự tay hoàn thiện qua từng tuần học.</li>
@@ -350,7 +385,7 @@
       </div>
 
       <div class="closing-card reveal">
-        <h3>💞 Tâm sự nho nhỏ</h3>
+        <h3>💮 Tâm sự nho nhỏ</h3>
         <p>Học một kỹ năng mới giống như trồng một khu vườn nhỏ, cần thời gian, sự kiên nhẫn và chăm sóc mỗi ngày. Mình tin rằng những cố gắng nhỏ hôm nay sẽ dần nở thành thành quả đẹp trong tương lai.</p>
       </div>
     </section>
@@ -441,26 +476,56 @@
       <div class="section-head reveal">
         <span class="eyebrow">Tổng kết</span>
         <h2>Nhìn nhận &amp; Trải nghiệm học tập 🌸</h2>
-        <p>Chạm vào từng mục để mở rộng và đọc thêm nhé</p>
+        <p>Chọn giữa các tab dưới đây để xem chi tiết</p>
       </div>
 
-      <div class="acc-wrap">
-        <details class="acc-item reveal" open>
-          <summary>💡 Bài học cốt lõi <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Quá trình học đã giúp mình nhận ra rằng công nghệ và AI chỉ là công cụ hỗ trợ, còn sự kiên trì luyện tập mỗi ngày mới là điều quyết định. Nhờ có học phần này, mình đã gặt hái được những tư duy vô cùng đắt giá khi học được cách tổ chức, quy hoạch dữ liệu một cách khoa học để thay thế cho thói quen lưu trữ rời rạc trước đây, đồng thời rèn luyện được óc phản biện nhạy bén để chủ động sàng lọc và kiểm định độ tin cậy của các luồng thông tin học thuật trên không gian mạng. Không chỉ dừng lại ở đó, môn học còn giúp mình học cách tương tác với công nghệ để biến AI thành một người trợ lý đắc lực, biết cách đồng bộ hóa luồng công việc để nâng cao hiệu suất khi cộng tác nhóm trực tuyến, và đặc biệt là nhận thức sâu sắc về việc giữ gìn bản sắc cá nhân để dung hòa giữa sự hỗ trợ của máy tính với dấu ấn sáng tạo độc bản, từ đó rèn luyện tính kiên nhẫn nhằm không ngừng tinh chỉnh và hướng tới những sản phẩm chỉn chu, chuyên nghiệp nhất</div>
-        </details>
-        <details class="acc-item reveal">
-          <summary>🍓 Hành trình trưởng thành <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Từ những bỡ ngỡ ban đầu khi làm quen với máy tính và các công cụ số, mình đã dần tự tin hơn trong việc quản lý tài liệu, tra cứu thông tin đáng tin cậy và phối hợp làm việc nhóm trực tuyến, nền tảng cho hành trình học ngôn ngữ lâu dài phía trước.</div>
-        </details>
-        <details class="acc-item reveal">
-          <summary>🎯 Mục tiêu môn học <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Đến với môn học này, mục tiêu lớn nhất của mình là bứt phá khỏi những giới hạn an toàn mang tính truyền thống của một sinh viên ngôn ngữ để chủ động kiến tạo một tư duy số nhạy bén, nơi mình có thể nâng cao năng lực kết hợp với các mô hình trí tuệ nhân tạo nhằm tối ưu hóa hiệu suất nghiên cứu, đồng thời thành thạo các công cụ sáng tạo để tự tay sản xuất và thiết kế các ấn phẩm truyền thông đa phương tiện trực quan, từ đó định hình phong cách làm việc chuyên nghiệp, bảo mật và luôn thượng tôn các nguyên tắc liêm chính học thuật trong kỷ nguyên số.</div>
-        </details>
-        <details class="acc-item reveal">
-          <summary>💗 Điều học được khi làm Portfolio <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Quá trình tự tay xây dựng chiếc Portfolio này đã mang lại cho mình bài học lớn về tư duy hệ thống và năng lực quản lý tiến trình cá nhân. Mình nhận ra rằng việc nhìn lại và đóng gói các sản phẩm không đơn thuần là gom góp dữ liệu, mà là học cách tự đánh giá bản thân một cách khách quan, biết cách sắp xếp thông tin theo một logic mạch lạc để người xem dễ dàng tiếp cận. Qua đó, mình rèn luyện được tính kiên nhẫn khi phải liên tục tinh chỉnh giao diện, câu chữ và học được cách chuyển hóa những trải nghiệm học tập rời rạc thành một chuỗi giá trị có câu chuyện, có định hướng rõ ràng cho tương lai.</div>
-        </details>
+      <div class="tk-tabs-header reveal">
+        <div class="tk-tab active" data-target="panel-nhin-nhan">Nhìn nhận bản thân</div>
+        <div class="tk-tab" data-target="panel-bieu-do">Biểu đồ tiến độ</div>
+      </div>
+
+      <div class="tk-panels reveal">
+        <div class="tk-panel active" id="panel-nhin-nhan">
+          <div class="acc-wrap">
+            <details class="acc-item" open>
+              <summary>💮 Bài học cốt lõi <span class="acc-plus">+</span></summary>
+              <div class="acc-body">Quá trình học đã giúp mình nhận ra rằng công nghệ và AI chỉ là công cụ hỗ trợ, còn sự kiên trì luyện tập mỗi ngày mới là điều quyết định. Nhờ có học phần này, mình đã gặt hái được những tư duy vô cùng đắt giá when học được cách tổ chức, quy hoạch dữ liệu một cách khoa học để thay thế cho thói quen lưu trữ rời rạc trước đây, đồng thời rèn luyện được óc phản biện nhạy bén để chủ động sàng lọc và kiểm định độ tin cậy của các luồng thông tin học thuật trên không gian mạng. Không chỉ dừng lại ở đó, môn học còn giúp mình học cách tương tác với công nghệ để biến AI thành một người trợ lý đắc lực, biết cách đồng bộ hóa luồng công việc để nâng cao hiệu suất khi cộng tác nhóm trực tuyến, and đặc biệt là nhận thức sâu sắc về việc giữ gìn bản sắc cá nhân để dung hòa giữa sự hỗ trợ của máy tính với dấu ấn sáng tạo độc bản, từ đó rèn luyện tính kiên nhẫn nhằm không ngừng tinh chỉnh and hướng tới những sản phẩm chỉn chu, chuyên nghiệp nhất.</div>
+            </details>
+            <details class="acc-item">
+              <summary>🪴 Hành trình trưởng thành <span class="acc-plus">+</span></summary>
+              <div class="acc-body">Từ những bỡ ngỡ ban đầu khi làm quen với máy tính and các công cụ số, mình đã dần tự tin hơn trong việc quản lý tài liệu, tra cứu thông tin đáng tin cậy and phối hợp làm việc nhóm trực tuyến, nền tảng cho hành trình học ngôn ngữ lâu dài phía trước.</div>
+            </details>
+            <details class="acc-item">
+              <summary>🎯 Mục tiêu môn học <span class="acc-plus">+</span></summary>
+              <div class="acc-body">Đến với môn học này, mục tiêu lớn nhất của mình là bứt phá khỏi những giới hạn an toàn mang tính truyền thống của một sinh viên ngôn ngữ để chủ động kiến tạo một tư duy số nhạy bén, nơi mình có thể nâng cao năng lực kết hợp với các mô hình trí tuệ nhân tạo nhằm tối ưu hóa hiệu suất nghiên cứu, đồng thời thành thạo các công cụ sáng tạo để tự tay sản xuất and thiết kế các ấn phẩm truyền thông đa phương tiện trực quan, từ đó định hình phong cách làm việc chuyên nghiệp, bảo mật and luôn thượng tôn các nguyên tắc liêm chính học thuật trong kỷ nguyên số.</div>
+            </details>
+            <details class="acc-item">
+              <summary>💌 Điều học được khi làm Portfolio <span class="acc-plus">+</span></summary>
+              <div class="acc-body">Quá trình tự tay xây dựng chiếc Portfolio này đã mang lại cho mình bài học lớn về tư duy hệ thống and năng lực quản lý tiến trình cá nhân. Mình nhận ra rằng việc nhìn lại and đóng gói các sản phẩm không đơn thuần là gom góp dữ liệu, mà là học cách tự đánh giá bản thân một cách khách quan, biết cách sắp xếp thông tin theo một logic mạch lạc để người xem dễ dàng tiếp cận. Qua đó, mình rèn luyện được tính kiên nhẫn khi phải liên tục tinh chỉnh giao diện, câu chữ and học được cách chuyển hóa những trải nghiệm học tập rời rạc thành một chuỗi giá trị có câu chuyện, có định hướng rõ ràng cho tương lai.</div>
+            </details>
+          </div>
+        </div>
+
+        <div class="tk-panel" id="panel-bieu-do">
+          <div class="chart-grid">
+            <div class="chart-box" data-pct="100">
+              <svg class="svg-circle" width="120" height="120">
+                <circle class="circle-bg" cx="60" cy="60" r="54"></circle>
+                <circle class="circle-bar" cx="60" cy="60" r="54"></circle>
+              </svg>
+              <div class="chart-text">100%</div>
+              <div style="font-size:0.82rem; color:var(--ink-soft); margin-top:6px;">Chuyên cần & Nỗ lực</div>
+            </div>
+            <div class="chart-box" data-pct="95">
+              <svg class="svg-circle" width="120" height="120">
+                <circle class="circle-bg" cx="60" cy="60" r="54"></circle>
+                <circle class="circle-bar" cx="60" cy="60" r="54"></circle>
+              </svg>
+              <div class="chart-text">95%</div>
+              <div style="font-size:0.82rem; color:var(--ink-soft); margin-top:6px;">Kỹ năng Số tăng trưởng</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="summary-stats">
@@ -496,11 +561,44 @@
   }
   document.querySelectorAll('.narrative-card, .t-card, .stat, .closing-card').forEach(el => addTilt(el, 4));
 
+  const tkTabs = document.querySelectorAll('.tk-tab');
+  const tkPanels = document.querySelectorAll('.tk-panel');
+  tkTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tkTabs.forEach(t => t.classList.remove('active'));
+      tkPanels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const targetPanel = document.getElementById(tab.dataset.target);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+        if(tab.dataset.target === 'panel-bieu-do') {
+          document.querySelectorAll('.chart-box').forEach(box => {
+            const bar = box.querySelector('.circle-bar');
+            const pct = parseFloat(box.dataset.pct);
+            const offset = 339.3 - (339.3 * pct / 100);
+            bar.style.strokeDashoffset = offset;
+          });
+        }
+      }
+    });
+  });
+
   const reveals = document.querySelectorAll('.reveal');
   reveals.forEach((el, i) => { el.style.transitionDelay = (i % 6) * 0.06 + 's'; });
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
-      if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+      if(entry.isIntersecting){ 
+        entry.target.classList.add('in-view'); 
+        if(entry.target.classList.contains('reveal') && document.getElementById('panel-bieu-do').classList.contains('active')) {
+          document.querySelectorAll('.chart-box').forEach(box => {
+            const bar = box.querySelector('.circle-bar');
+            const pct = parseFloat(box.dataset.pct);
+            const offset = 339.3 - (339.3 * pct / 100);
+            requestAnimationFrame(()=>{ bar.style.strokeDashoffset = offset; });
+          });
+        }
+        io.unobserve(entry.target); 
+      }
     });
   }, { threshold: 0.12 });
   reveals.forEach(el=>io.observe(el));
@@ -521,16 +619,17 @@
         navLinks.forEach(l=>{ l.classList.toggle('active', l.getAttribute('href') === '#' + id); });
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.35 });
   sections.forEach(s=>navIo.observe(s));
 </script>
+
 <script>
-  // === HOẠT HỌA CÁNH HOA ĐÀO RƠI - PHÁT TRIỂN CHUẨN GEMINI CODE ===
+  // === HOẠT HỌA CÁNH HOA ĐÀO RƠI ===
   const sakuraContainer = document.createElement('div');
   sakuraContainer.id = 'sakura-container';
   document.body.appendChild(sakuraContainer);
 
-  const maxPetals = 35; // Số lượng cánh hoa hiển thị cùng lúc tối ưu nhất để mượt mà
+  const maxPetals = 35; 
   const petals = [];
 
   function createPetal() {
@@ -538,7 +637,7 @@
     el.className = 'sakura-petal';
     sakuraContainer.appendChild(el);
     
-    const size = Math.random() * 8 + 8; // Kích thước ngẫu nhiên từ 8px - 16px
+    const size = Math.random() * 8 + 8; 
     el.style.width = size + 'px';
     el.style.height = size + 'px';
     
@@ -547,15 +646,14 @@
       x: Math.random() * window.innerWidth,
       y: -20,
       size: size,
-      speedY: Math.random() * 1.2 + 0.6,    // Vận tốc rơi dọc nhẹ nhàng lãng mạn
-      speedX: Math.random() * 0.6 + 0.2,    // Hướng gió đẩy nhẹ sang bên phải
+      speedY: Math.random() * 1.2 + 0.6,    
+      speedX: Math.random() * 0.6 + 0.2,    
       rotation: Math.random() * 360,
-      rotSpeed: Math.random() * 1.5 - 0.75, // Vận tốc tự xoay quanh trục ngẫu nhiên
-      opacity: Math.random() * 0.3 + 0.6    // Độ mờ từ 0.6 đến 0.9 giúp giữ sắc hồng dịu dàng
+      rotSpeed: Math.random() * 1.5 - 0.75, 
+      opacity: Math.random() * 0.3 + 0.6    
     };
   }
 
-  // Khởi tạo các vị trí ngẫu nhiên ban đầu để cánh hoa rải đều màn hình khi vừa mở trang
   for (let i = 0; i < maxPetals; i++) {
     const p = createPetal();
     p.y = Math.random() * window.innerHeight;
@@ -568,7 +666,6 @@
       p.x += p.speedX;
       p.rotation += p.rotSpeed;
       
-      // Nếu cánh hoa trôi ra khỏi màn hình, đưa trở lại đỉnh đầu để tái sử dụng
       if (p.y > window.innerHeight + 20 || p.x > window.innerWidth + 20) {
         p.y = -20;
         p.x = Math.random() * window.innerWidth;
@@ -576,7 +673,6 @@
         p.speedX = Math.random() * 0.6 + 0.2;
       }
       
-      // Cập nhật vị trí và hiệu ứng xoay 3D bằng Transform phối hợp mượt mà
       p.el.style.top = p.y + 'px';
       p.el.style.left = p.x + 'px';
       p.el.style.transform = `rotate(${p.rotation}deg) rotateX(${p.rotation * 0.3}deg)`;
@@ -586,10 +682,8 @@
     requestAnimationFrame(updatePetals);
   }
 
-  // Khởi chạy vòng lặp hoạt họa hiệu năng cao
   requestAnimationFrame(updatePetals);
 
-  // Xử lý khi co giãn kích thước cửa sổ trình duyệt để giữ vị trí hợp lý
   window.addEventListener('resize', () => {
     petals.forEach(p => {
       if (p.x > window.innerWidth) p.x = Math.random() * window.innerWidth;
