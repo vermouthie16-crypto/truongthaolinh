@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trương Thảo Linh — Portfolio 🌸</title>
+<title>Trương Thảo Linh Portfolio 🌸</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,36 +32,22 @@
     html{ scroll-behavior: auto; }
     *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
-  
-  /* NỀN ĐỘNG PHỨC TẠP */
   body{
     margin: 0; font-family: 'Quicksand', sans-serif; color: var(--ink);
-    background: radial-gradient(at 0% 0%, #FDEEF3 0px, transparent 50%),
-                radial-gradient(at 100% 0%, #EBF6EC 0px, transparent 50%),
-                radial-gradient(at 100% 100%, #FFF5F0 0px, transparent 50%),
-                radial-gradient(at 0% 100%, #FCFBF8 0px, transparent 50%),
-                linear-gradient(135deg, #FCFBF8 0%, #FAD4E0 40%, #CBEAD3 80%, #FCFBF8 100%);
-    background-size: 200% 200%;
-    animation: meshFlow 12s ease-in-out infinite;
+    background: linear-gradient(160deg, var(--cream), var(--pink-pale), var(--green-pale), var(--cream));
+    background-size: 300% 300%;
+    animation: bgFlow 20s ease-in-out infinite;
     overflow-x: hidden;
-    position: relative;
   }
-  @keyframes meshFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .blob{ position: fixed; border-radius: 50%; filter: blur(50px); opacity: 0.55; z-index: 0; pointer-events: none; }
-  .blob-1{ width: 400px; height: 400px; background: var(--pink-soft); top: -50px; right: -50px; animation: drift1 12s ease-in-out infinite; }
-  .blob-2{ width: 380px; height: 380px; background: var(--green-soft); bottom: -50px; left: -50px; animation: drift2 15s ease-in-out infinite; }
-  .blob-3{ width: 300px; height: 300px; background: var(--peach); top: 40%; left: 70%; opacity: 0.35; animation: drift1 18s ease-in-out infinite reverse; }
-  
-  @keyframes drift1{ 0%,100%{ transform: translate(0,0) scale(1) rotate(0deg); } 50%{ transform: translate(-50px,60px) scale(1.15) rotate(180deg); } }
-  @keyframes drift2{ 0%,100%{ transform: translate(0,0) scale(1) rotate(0deg); } 50%{ transform: translate(60px,-50px) scale(1.2) rotate(-180deg); } }
-
+  @keyframes bgFlow{ 0%,100%{ background-position: 0% 30%; } 50%{ background-position: 100% 70%; } }
   h1, h2, h3, .display{ font-family: 'Baloo 2', cursive; font-weight: 700; }
   a{ color: inherit; text-decoration: none; }
+
+  .blob{ position: fixed; border-radius: 50%; filter: blur(70px); opacity: 0.35; z-index: 0; pointer-events: none; }
+  .blob-1{ width: 360px; height: 360px; background: var(--pink-soft); top: -90px; right: -90px; animation: drift1 17s ease-in-out infinite; }
+  .blob-2{ width: 320px; height: 320px; background: var(--green-soft); bottom: -80px; right: 20%; animation: drift2 21s ease-in-out infinite; }
+  @keyframes drift1{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(-40px,50px) scale(1.1); } }
+  @keyframes drift2{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(45px,-35px) scale(1.12); } }
 
   .cursor-glow{
     position: fixed; width: 16px; height: 16px; border-radius: 50%;
@@ -70,28 +56,14 @@
     mix-blend-mode: multiply; opacity: 0; transition: opacity 0.3s ease;
   }
 
-  /* Hiệu ứng cánh hoa rơi nhẹ ở lớp nền */
-  #sakura-container {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 1; overflow: hidden;
-  }
-  .sakura-petal {
-    position: absolute; background: linear-gradient(135deg, #FFE5EE, #FBAEC6);
-    border-radius: 90% 15% 90% 15% / 90% 15% 90% 15%;
-    transform-origin: center;
-    will-change: transform, top, left;
-    filter: drop-shadow(0 2px 5px rgba(220,130,160,0.3));
-  }
+  .layout{ position: relative; z-index: 1; min-height: 100vh; }
 
-  /* Lớp layout nội dung luôn đè lên trên hoa rơi */
-  .layout{ position: relative; z-index: 2; min-height: 100vh; }
-
-  /* ===== top bar ===== */
+  /* ===== top bar — small, rounded, floating ===== */
   .topbar{
     position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
     width: calc(100% - 32px); max-width: 1100px; z-index: 50;
     display: flex; align-items: center; gap: 18px; padding: 10px 18px;
-    background: rgba(255,255,255,0.82); backdrop-filter: blur(16px);
+    background: rgba(255,255,255,0.72); backdrop-filter: blur(16px);
     border-radius: 20px; border: 1px solid rgba(70,65,76,0.08);
     box-shadow: var(--shadow-soft);
     animation: topbarIn 0.8s cubic-bezier(.2,.8,.3,1.1);
@@ -149,7 +121,6 @@
   .hero-top-text{ flex: 1 1 320px; }
   .hero-top-text h1{ margin-bottom: 0; }
 
-  /* ===== KHUNG ẢNH CHÂN DUNG ===== */
   .photo-frame{
     position: relative; width: 220px; height: 220px; flex-shrink: 0; margin: 10px auto;
   }
@@ -180,15 +151,13 @@
     font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 3.2rem; color: var(--pink-mid);
     width: 100%; height: 100%; align-items: center; justify-content: center;
   }
-
   .photo-sticker{
-    position: absolute; width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center; font-size: 2.3rem;
-    z-index: 5; filter: drop-shadow(0 4px 6px rgba(90, 70, 90, 0.15));
-    animation: stickerWiggle 4s ease-in-out infinite;
+    position: absolute; width: 42px; height: 42px; border-radius: 50%; background: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    box-shadow: var(--shadow-soft); animation: stickerWiggle 4s ease-in-out infinite;
   }
-  .sticker-1{ bottom: -12px; left: -14px; }
-  .sticker-2{ top: 46%; right: -20px; animation-delay: 1s; }
+  .sticker-1{ bottom: -14px; left: -14px; }
+  .sticker-2{ top: 46%; right: -16px; animation-delay: 1s; }
   @keyframes stickerWiggle{ 0%,100%{ transform: rotate(-8deg); } 50%{ transform: rotate(10deg); } }
 
   @media (max-width: 700px){
@@ -196,7 +165,7 @@
   }
 
   .narrative-card{
-    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-radius: var(--radius-lg); padding: 26px 30px;
+    background: var(--white-soft); border-radius: var(--radius-lg); padding: 26px 30px;
     box-shadow: var(--shadow-soft); margin-bottom: 20px; border-top: 3px solid var(--pink-soft);
   }
   .narrative-card:nth-of-type(2n){ border-top-color: var(--green-soft); }
@@ -209,7 +178,7 @@
   }
   .goal-list li::before{ content: "🌷"; flex-shrink: 0; font-size: 0.78rem; }
   .closing-card{
-    background: linear-gradient(135deg, rgba(250,212,224,0.8), rgba(203,234,211,0.8)); backdrop-filter: blur(8px); border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--pink-pale), var(--green-pale)); border-radius: var(--radius-lg);
     padding: 26px 30px; box-shadow: var(--shadow-soft);
   }
   .closing-card h3{ margin: 0 0 10px; color: var(--ink); }
@@ -240,7 +209,7 @@
   .t-item:nth-child(odd) .t-dot{ right: -19px; }
   .t-item:nth-child(even) .t-dot{ left: -19px; }
   .t-card{
-    display: inline-block; text-align: left; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(6px); border-radius: var(--radius-sm);
+    display: inline-block; text-align: left; background: var(--white-soft); border-radius: var(--radius-sm);
     padding: 20px 22px; box-shadow: var(--shadow-soft); max-width: 380px;
     transition: transform 0.35s ease;
   }
@@ -265,7 +234,7 @@
   /* ===== tong ket — accordion ===== */
   .acc-wrap{ max-width: 720px; margin: 0 auto 46px; display: flex; flex-direction: column; gap: 14px; }
   details.acc-item{
-    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(6px); border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); overflow: hidden;
+    background: var(--white-soft); border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); overflow: hidden;
   }
   details.acc-item summary{
     list-style: none; cursor: pointer; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between;
@@ -311,9 +280,6 @@
 
 <div class="blob blob-1"></div>
 <div class="blob blob-2"></div>
-<div class="blob blob-3"></div>
-
-<div id="sakura-container"></div>
 
 <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -335,15 +301,15 @@
       <a href="#bai-tap" class="nav-link"><span class="dot"></span> Bài tập cá nhân</a>
       <a href="#tong-ket" class="nav-link"><span class="dot"></span> Tổng kết</a>
     </nav>
-    <a href="#" class="sb-drive">📁 Google Drive</a>
+    <a href="https://drive.google.com/drive/folders/1ty4BfRGUHsFPBOHFrpIATeJO12PqL1cK?usp=drive_link" class="sb-drive">Google Drive</a>
   </header>
 
   <main class="content">
     <section id="gioi-thieu">
       <div class="hero-top">
         <div class="hero-top-text">
-          <span class="eyebrow reveal">🌸 Lời chào từ mình</span>
-          <h1 class="reveal">Xin chào! Mình là <span>Trương Thảo Linh</span></h1>
+          <span class="eyebrow reveal">Giới thiệu bản thân</span>
+          <h1 class="reveal">Xin chào! Mình tên là <span>Trương Thảo Linh</span></h1>
         </div>
         <div class="photo-frame reveal">
           <div class="photo-dash"></div>
@@ -353,46 +319,46 @@
             <span class="photo-fallback" style="display:none;">TL</span>
           </div>
           <div class="photo-sticker sticker-1">🎀</div>
-          <div class="photo-sticker sticker-2">📖</div>
+          <div class="photo-sticker sticker-2">🎍</div>
         </div>
       </div>
 
       <div class="narrative-card reveal">
-        <h3>🌱 Về bản thân</h3>
-        <p>Mình là sinh viên ngành Ngôn ngữ và Văn hóa Nhật Bản, một người khá nhẹ nhàng và tỉ mỉ trong cách sống. Mình yêu thích sự tinh tế trong văn hoá Nhật – từ cách sắp xếp không gian đến cách người Nhật trân trọng từng khoảnh khắc nhỏ. Với mình, "một điều nhịn chín điều lành" – sự kiên nhẫn luôn là chìa khoá cho mọi hành trình học tập.</p>
+        <h3>Về bản thân</h3>
+        <p>Mình là sinh viên ngành Ngôn ngữ và Văn hóa Nhật Bản, một người khá nhẹ nhàng và tỉ mỉ trong cách sống. Mình yêu thích sự tinh tế trong văn hoá Nhật – từ cách sắp xếp không gian đến cách người Nhật trân trọng từng khoảnh khắc nhỏ. Với mình, sự chăm chỉ và kiên nhẫn luôn là chìa khoá cho mọi hành trình học tập.</p>
       </div>
 
       <div class="narrative-card reveal">
-        <h3>🎯 Mục tiêu học tập và phát triển</h3>
-        <p>Mình mong muốn xây dựng nền tảng tiếng Nhật vững chắc và hiểu sâu hơn về văn hoá xứ sở hoa anh đào. Cụ thể, mình hướng đến:</p>
+        <h3>Mục tiêu học tập và phát triển</h3>
+        <p>Tham gia học phần này, mình tự đặt ra cho bản thân những cột mốc để bứt phá và nâng cấp tư duy:</p>
         <ul class="goal-list">
-          <li>Nâng cao đều 4 kỹ năng nghe – nói – đọc – viết tiếng Nhật</li>
-          <li>Tìm hiểu sâu hơn về văn hoá, lịch sử và con người Nhật Bản</li>
-          <li>Tự tin hơn khi giao tiếp và làm việc trong môi trường đa văn hoá</li>
-          <li>Biết ứng dụng công nghệ, AI để hỗ trợ việc học ngôn ngữ hiệu quả</li>
+          <li>Học cách "cộng tác" với AI để biến các mô hình trí tuệ nhân tạo thành trợ lý đắc lực trong việc tra cứu, biên dịch và nghiên cứu văn hóa.</li>
+          <li>Làm chủ các nền tảng thiết kế và sản xuất nội dung số để truyền tải các ý tưởng ngôn ngữ một cách trực quan, sinh động nhất.</li>
+          <li>Định hình thói quen ứng dụng công nghệ một cách thông minh đi đôi với việc bảo mật thông tin và tôn trọng đạo đức học thuật.</li>
+          <li>Biết ứng dụng công nghệ, AI để hỗ trợ việc học ngôn ngữ hiệu quả.</li>
         </ul>
       </div>
 
       <div class="narrative-card reveal">
-        <h3>📔 Mục tiêu của Portfolio</h3>
+        <h3>Mục tiêu của Portfolio</h3>
         <p>Portfolio này là nơi mình lưu lại từng chặng đường nhỏ trong quá trình học tập. Thông qua đó, mình mong muốn:</p>
         <ul class="goal-list">
-          <li>Ghi lại quá trình học tập một cách rõ ràng và có hệ thống</li>
-          <li>Nhìn lại sự tiến bộ của bản thân qua từng học kỳ</li>
-          <li>Lưu giữ những kỷ niệm và trải nghiệm đáng nhớ trong quá trình học</li>
+          <li>Đóng gói và trưng bày tất cả các sản phẩm số, các dự án thực hành mà mình đã tự tay hoàn thiện qua từng tuần học.</li>
+          <li>Tự đánh giá và đo lường sự trưởng thành trong kỹ năng số của bản thân qua từng bài học.</li>
+          <li>Lưu giữ trọn vẹn những trải nghiệm thực tế đầy hào hứng, những khoảnh khắc học hỏi ý nghĩa cùng thầy cô và các bạn.</li>
         </ul>
       </div>
 
       <div class="closing-card reveal">
-        <h3>💌 Lời kết</h3>
-        <p>Học một ngôn ngữ mới giống như trồng một khu vườn nhỏ – cần thời gian, sự kiên nhẫn và chăm sóc mỗi ngày. Mình tin rằng những cố gắng nhỏ hôm nay sẽ dần nở thành thành quả đẹp trong tương lai. Cảm ơn bạn đã ghé thăm góc nhỏ này của mình!</p>
+        <h3>Tâm sự nho nhỏ</h3>
+        <p>Học một kỹ năng mới giống như trồng một khu vườn nhỏ, cần thời gian, sự kiên nhẫn và chăm sóc mỗi ngày. Mình tin rằng những cố gắng nhỏ hôm nay sẽ dần nở thành thành quả đẹp trong tương lai.</p>
       </div>
     </section>
 
     <section id="bai-tap">
       <div class="section-head reveal">
         <span class="eyebrow">Sản phẩm cá nhân</span>
-        <h2>Hành trình 6 bài tập cá nhân 🌿</h2>
+        <h2>Hành trình thực hiện 6 bài tập cá nhân 🌿</h2>
         <p>Mỗi dấu mốc trên dòng thời gian là một bài học nhỏ mình đã tích luỹ được</p>
       </div>
       <div class="timeline">
@@ -400,72 +366,72 @@
           <div class="t-dot">1</div>
           <div class="t-card">
             <span class="tag">Bài 1</span>
-            <h3>📎 Thao tác cơ bản với tệp tin và thư mục</h3>
+            <h3>Máy tính và các thiết bị ngoại vi</h3>
             <div class="t-goal">
-              <div class="row"><b>⛩️ Mục tiêu:</b> Nắm vững nền tảng hệ điều hành để thiết lập tư duy sắp xếp, lưu trữ và đồng bộ hóa tài liệu một cách tối ưu.</div>
-              <div class="row result"><b>⭐ Thành quả:</b> Quản lý dữ liệu máy tính ngăn nắp, làm chủ các phím tắt cốt lõi giúp tăng tốc độ xử lý tác vụ hàng ngày.</div>
+              <div class="row"><b>🌿 Mục tiêu:</b> Nắm vững nền tảng hệ điều hành để thiết lập tư duy sắp xếp, lưu trữ và đồng bộ hóa tài liệu một cách tối ưu.</div>
+              <div class="row result"><b>🌸 Quá trình thực hiện:</b> Quy hoạch lại toàn bộ dữ liệu học tập theo mô hình phân tầng khoa học, ứng dụng linh hoạt các thao tác lệnh để luân chuyển, dọn dẹp và khôi phục tài nguyên một cách nhanh chóng.</div>
             </div>
-            <a href="#" class="drive-btn">GG Drive</a>
+            <a href="https://docs.google.com/document/d/17q3jQ2W5plNDGQhJ1NvSgQBPEWsR5T9k/edit?usp=drive_link&ouid=115701465242001315455&rtpof=true&sd=true" class="drive-btn">Xem bài tập tại đây</a>
           </div>
         </div>
         <div class="t-item reveal">
           <div class="t-dot">2</div>
           <div class="t-card">
             <span class="tag">Bài 2</span>
-            <h3>📎 Tìm kiếm và đánh giá thông tin học thuật</h3>
+            <h3>Khai thác dữ liệu và thông tin</h3>
             <div class="t-goal">
-              <div class="row"><b>⛩️ Mục tiêu:</b> Định hình tư duy nghiên cứu thông qua việc chọn lọc nguồn học liệu chính thống tại Google Scholar và CiNii.</div>
-              <div class="row result"><b>⭐ Thành quả:</b> Xây dựng thành công bộ tài liệu tham khảo chất lượng, biết cách thẩm định nguồn tin phục vụ các bài luận chuyên ngành.</div>
+              <div class="row"><b>🌿 Mục tiêu:</b> Định hình tư duy nghiên cứu thông qua việc chọn lọc nguồn học liệu chính thống tại Google Scholar và CiNii.</div>
+              <div class="row result"><b>🌸 Quá trình thực hiện:</b> Khai thác sâu các bộ lọc tìm kiếm trên Google Scholar và hệ thống tạp chí chuyên ngành, tiến hành phân tích đa chiều và thẩm định độ tin cậy của các nguồn tài liệu phục vụ đề tài.</div>
             </div>
-            <a href="#" class="drive-btn">GG Drive</a>
+            <a href="https://docs.google.com/document/d/1-2_PS7ik-cGMvRAux__FuubiqE6lkELz/edit?usp=drive_link&ouid=115701465242001315455&rtpof=true&sd=true" class="drive-btn">Xem bài tập tại đây</a>
           </div>
         </div>
         <div class="t-item reveal">
           <div class="t-dot">3</div>
           <div class="t-card">
             <span class="tag">Bài 3</span>
-            <h3>📎 Viết Prompt hiệu quả cho việc học tiếng Nhật</h3>
+            <h3>Tổng quan về trí tuệ nhân tạo</h3>
             <div class="t-goal">
-              <div class="row"><b>⛩️ Mục tiêu:</b> Học cách làm chủ ngôn ngữ gợi ý (Prompt) để khai thác tối đa và chính xác năng lực hỗ trợ của AI trong việc luyện chữ Kanji và ngữ pháp.</div>
-              <div class="row result"><b>⭐ Thành quả:</b> Hoàn thành kho câu hỏi ôn tập thông minh bằng cách áp dụng nhuần nhuyễn các kỹ thuật ra lệnh nâng cao cho AI.</div>
+              <div class="row"><b>🌿 Mục tiêu:</b> Học cách làm chủ ngôn ngữ gợi ý (Prompt) để khai thác tối đa và chính xác năng lực hỗ trợ của AI trong việc học.</div>
+              <div class="row result"><b>🌸 Quá trình thực hiện:</b> Xây dựng các kịch bản câu lệnh chi tiết theo cấu trúc tăng dần về độ khó để thử thách năng lực phản hồi của AI, qua đó thu về bộ câu hỏi trắc nghiệm ôn tập chất lượng nhất.</div>
             </div>
-            <a href="#" class="drive-btn">GG Drive</a>
+            <a href="https://docs.google.com/document/d/1DuF4J_a0KRmUgbx_PjztKyd_1xAGIN6c/edit?usp=drive_link&ouid=115701465242001315455&rtpof=true&sd=true" class="drive-btn">Xem bài tập tại đây</a>
           </div>
         </div>
         <div class="t-item reveal">
           <div class="t-dot">4</div>
           <div class="t-card">
             <span class="tag">Bài 4</span>
-            <h3>📎 Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm</h3>
+            <h3>Giao tiếp và hợp tác trong môi trường số</h3>
             <div class="t-goal">
-              <div class="row"><b>⛩️ Mục tiêu:</b> Vận dụng bộ công cụ đám mây Google để tối ưu hóa quy trình tương tác, chia sẻ và làm việc nhóm từ xa.</div>
-              <div class="row result"><b>⭐ Thành quả:</b> Làm chủ kỹ năng điều phối dữ liệu, đồng bộ hóa kịch bản thời gian thực và quản lý tài nguyên số của tập thể.</div>
+              <div class="row"><b>🌿 Mục tiêu:</b> Vận dụng bộ công cụ đám mây Google để tối ưu hóa quy trình tương tác, chia sẻ và làm việc nhóm từ xa.</div>
+              <div class="row result"><b>🌸 Quá trình thực hiện:</b> Thiết lập mạng lưới kết nối liên tục từ khâu chia sẻ tài nguyên số, lên lịch tiến độ công việc đến phối hợp chỉnh sửa văn bản trực tiếp trên không gian làm việc chung.</div>
             </div>
-            <a href="#" class="drive-btn">GG Drive</a>
+            <a href="https://docs.google.com/document/d/1HlLppGgXVyMMRXnSc98EPS5YPp-3kxzA/edit?usp=drive_link&ouid=115701465242001315455&rtpof=true&sd=true" class="drive-btn">Xem bài tập tại đây</a>
           </div>
         </div>
         <div class="t-item reveal">
           <div class="t-dot">5</div>
           <div class="t-card">
             <span class="tag">Bài 5</span>
-            <h3>📎 Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</h3>
+            <h3>Sáng tạo nội dung số</h3>
             <div class="t-goal">
-              <div class="row"><b>⛩️ Mục tiêu:</b> Khai thác sức mạnh liên kết của các AI tạo sinh (văn bản, hình ảnh, thiết kế) để nâng cấp tư duy làm slide thuyết trình.</div>
-              <div class="row result"><b>⭐ Thành quả:</b> Hoàn thiện sản phẩm đồ họa có tính thẩm mỹ cao, biết cách lồng ghép tư duy phản biện chứ không lạm dụng công nghệ.</div>
+              <div class="row"><b>🌿 Mục tiêu:</b> Giải phóng tiềm năng thiết kế sáng tạo, biết cách phối hợp nhịp nhàng các công cụ thông minh để trực quan hóa mọi ý tưởng học thuật phức tạp.</div>
+              <div class="row result"><b>🌸 Quá trình thực hiện:</b> Kết hợp chuỗi giải pháp AI tạo sinh để quản lý quy trình từ việc phác thảo cấu trúc nội dung, tạo hệ thống hình ảnh minh họa độc quyền cho đến dàn trang Infographic sống động.</div>
             </div>
-            <a href="#" class="drive-btn">GG Drive</a>
+            <a href="https://docs.google.com/document/d/1OajlBCQAhBwzo4vApatmYrxQMdd3DsEb/edit?usp=drive_link&ouid=115701465242001315455&rtpof=true&sd=true" class="drive-btn">Xem bài tập tại đây</a>
           </div>
         </div>
         <div class="t-item reveal">
           <div class="t-dot">6</div>
           <div class="t-card">
             <span class="tag">Bài 6</span>
-            <h3>📎 Sử dụng AI có trách nhiệm trong học tập và nghiên cứu</h3>
+            <h3>An toàn và liêm chính học thuật trong môi trường số</h3>
             <div class="t-goal">
-              <div class="row"><b>⛩️ Mục tiêu:</b> Thấu hiểu các tiêu chuẩn liêm chính học thuật để ứng dụng AI an toàn, văn minh và tôn trọng bản quyền dữ liệu.</div>
-              <div class="row result"><b>⭐ Thành quả:</b> Thiết lập bộ nguyên tắc ứng xử số cá nhân và hoàn thành Infographic truyền tải thông điệp sử dụng AI có đạo đức.</div>
+              <div class="row"><b>🌿 Mục tiêu:</b> Thấu hiểu các tiêu chuẩn liêm chính học thuật để ứng dụng AI an toàn, văn minh và tôn trọng bản quyền dữ liệu.</div>
+              <div class="row result"><b>🌸 Quá trình thực hiện:</b> Đối chiếu và áp dụng nghiêm túc các quy tắc ứng xử, cẩm nang sử dụng AI của ULIS - ĐHQGHN vào sản phẩm học tập cá nhân thông qua việc trích dẫn nguồn tham khảo một cách minh bạch.</div>
             </div>
-            <a href="#" class="drive-btn">GG Drive</a>
+            <a href="https://docs.google.com/document/d/1t_H2lfhKAlGTDovwlo-RUNO6p_kwcN6i/edit?usp=drive_link&ouid=115701465242001315455&rtpof=true&sd=true" class="drive-btn">Xem bài tập tại đây</a>
           </div>
         </div>
       </div>
@@ -480,20 +446,20 @@
 
       <div class="acc-wrap">
         <details class="acc-item reveal" open>
-          <summary>💡 Bài học cốt lõi <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Quá trình học đã giúp mình nhận ra rằng công nghệ và AI chỉ là công cụ hỗ trợ, còn sự kiên trì luyện tập mỗi ngày mới là điều quyết định khả năng ngôn ngữ. Mình học được cách sắp xếp thời gian khoa học hơn và tận dụng công cụ số hiệu quả hơn cho việc học tiếng Nhật.</div>
+          <summary>Bài học cốt lõi <span class="acc-plus">+</span></summary>
+          <div class="acc-body">Quá trình học đã giúp mình nhận ra rằng công nghệ và AI chỉ là công cụ hỗ trợ, còn sự kiên trì luyện tập mỗi ngày mới là điều quyết định. Nhờ có học phần này, mình đã gặt hái được những tư duy vô cùng đắt giá khi học được cách tổ chức, quy hoạch dữ liệu một cách khoa học để thay thế cho thói quen lưu trữ rời rạc trước đây, đồng thời rèn luyện được óc phản biện nhạy bén để chủ động sàng lọc và kiểm định độ tin cậy của các luồng thông tin học thuật trên không gian mạng. Không chỉ dừng lại ở đó, môn học còn giúp mình học cách tương tác với công nghệ để biến AI thành một người trợ lý đắc lực, biết cách đồng bộ hóa luồng công việc để nâng cao hiệu suất khi cộng tác nhóm trực tuyến, và đặc biệt là nhận thức sâu sắc về việc giữ gìn bản sắc cá nhân để dung hòa giữa sự hỗ trợ của máy tính với dấu ấn sáng tạo độc bản, từ đó rèn luyện tính kiên nhẫn nhằm không ngừng tinh chỉnh và hướng tới những sản phẩm chỉn chu, chuyên nghiệp nhất</div>
         </details>
         <details class="acc-item reveal">
-          <summary>🌱 Quá trình trưởng thành <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Từ những bỡ ngỡ ban đầu khi làm quen với máy tính và các công cụ số, mình đã dần tự tin hơn trong việc quản lý tài liệu, tra cứu thông tin đáng tin cậy và phối hợp làm việc nhóm trực tuyến – nền tảng cho hành trình học ngôn ngữ lâu dài phía trước.</div>
+          <summary>Hành trình trưởng thành <span class="acc-plus">+</span></summary>
+          <div class="acc-body">Từ những bỡ ngỡ ban đầu khi làm quen với máy tính và các công cụ số, mình đã dần tự tin hơn trong việc quản lý tài liệu, tra cứu thông tin đáng tin cậy và phối hợp làm việc nhóm trực tuyến, nền tảng cho hành trình học ngôn ngữ lâu dài phía trước.</div>
         </details>
         <details class="acc-item reveal">
-          <summary>🎯 Mục tiêu môn học <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Mình mong muốn không chỉ giỏi tiếng Nhật trên giấy tờ, mà còn biết ứng dụng công nghệ – đặc biệt là AI – để hỗ trợ việc học thông minh hơn, đồng thời vẫn giữ vững sự liêm chính khi sử dụng các công cụ hiện đại.</div>
+          <summary>Mục tiêu môn học <span class="acc-plus">+</span></summary>
+          <div class="acc-body">Đến với môn học này, mục tiêu lớn nhất của mình là bứt phá khỏi những giới hạn an toàn mang tính truyền thống của một sinh viên ngôn ngữ để chủ động kiến tạo một tư duy số nhạy bén, nơi mình có thể nâng cao năng lực kết hợp với các mô hình trí tuệ nhân tạo nhằm tối ưu hóa hiệu suất nghiên cứu, đồng thời thành thạo các công cụ sáng tạo để tự tay sản xuất và thiết kế các ấn phẩm truyền thông đa phương tiện trực quan, từ đó định hình phong cách làm việc chuyên nghiệp, bảo mật và luôn thượng tôn các nguyên tắc liêm chính học thuật trong kỷ nguyên số.</div>
         </details>
         <details class="acc-item reveal">
-          <summary>💝 Điều học được khi làm Portfolio <span class="acc-plus">+</span></summary>
-          <div class="acc-body">Làm portfolio giúp mình nhìn lại có hệ thống những gì đã học được. Đây không chỉ là nơi lưu trữ bài tập, mà còn là cuốn nhật ký nhỏ đáng yêu, ghi lại từng bước tiến bộ trong hành trình chinh phục tiếng Nhật của mình.</div>
+          <summary>Điều học được khi làm Portfolio <span class="acc-plus">+</span></summary>
+          <div class="acc-body">Quá trình tự tay xây dựng chiếc Portfolio này đã mang lại cho mình bài học lớn về tư duy hệ thống và năng lực quản lý tiến trình cá nhân. Mình nhận ra rằng việc nhìn lại và đóng gói các sản phẩm không đơn thuần là gom góp dữ liệu, mà là học cách tự đánh giá bản thân một cách khách quan, biết cách sắp xếp thông tin theo một logic mạch lạc để người xem dễ dàng tiếp cận. Qua đó, mình rèn luyện được tính kiên nhẫn khi phải liên tục tinh chỉnh giao diện, câu chữ và học được cách chuyển hóa những trải nghiệm học tập rời rạc thành một chuỗi giá trị có câu chuyện, có định hướng rõ ràng cho tương lai.</div>
         </details>
       </div>
 
@@ -505,81 +471,12 @@
     </section>
 
     <footer>
-      🌸 made by Trương Thảo Linh — cảm ơn đã ghé thăm! 🌿
+      Portfolio made by Trương Thảo Linh 🌿
     </footer>
   </main>
 </div>
 
 <script>
-  // ----- CẤU HÌNH HOA ĐÀO RƠI: DÀY HƠN, RÕ NÉT HƠN -----
-  const container = document.getElementById('sakura-container');
-  const maxPetals = 75; // Tăng số lượng cánh hoa đồng thời xuất hiện từ 30 lên 75
-  const petals = [];
-
-  function createPetal() {
-    const el = document.createElement('div');
-    el.className = 'sakura-petal';
-    
-    // Tăng size cánh hoa to rõ hơn (từ 12px đến 22px)
-    const size = Math.random() * 10 + 12;
-    el.style.width = `${size}px`;
-    el.style.height = `${size + Math.random() * 6}px`;
-
-    const x = Math.random() * window.innerWidth * 1.2 - (window.innerWidth * 0.1);
-    const y = -40;
-    
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
-    container.appendChild(el);
-
-    return {
-      el,
-      x,
-      y,
-      speedY: Math.random() * 0.8 + 0.6,     // Giữ nhịp rơi nhẹ, chậm lãng mạn
-      speedX: Math.random() * 0.6 + 0.3,     // Độ bay xiên nhẹ theo chiều gió
-      rotation: Math.random() * 360,
-      rotSpeed: (Math.random() * 1.2 - 0.6),
-      opacity: Math.random() * 0.3 + 0.6     // Tăng độ hiển thị đậm nét lên (0.6 - 0.9) thay vì mờ nhạt
-    };
-  }
-
-  for (let i = 0; i < maxPetals; i++) {
-    const p = createPetal();
-    p.y = Math.random() * window.innerHeight; // Trải đều vị trí hoa trên màn hình lúc mới load trang
-    petals.push(p);
-  }
-
-  function updatePetals() {
-    const height = window.innerHeight;
-    const width = window.innerWidth;
-
-    for (let i = 0; i < petals.length; i++) {
-      const p = petals[i];
-      p.y += p.speedY;
-      p.x += p.speedX;
-      p.rotation += p.rotSpeed;
-
-      p.el.style.top = `${p.y}px`;
-      p.el.style.left = `${p.x}px`;
-      p.el.style.opacity = p.opacity;
-      p.el.style.transform = `rotate(${p.rotation}deg) rotateX(${p.rotation * 0.2}deg)`;
-
-      // Reset khi hoa rơi qua đáy màn hình
-      if (p.y > height + 30 || p.x > width + 30) {
-        p.y = -40;
-        p.x = Math.random() * width * 1.1 - (width * 0.1);
-        p.speedY = Math.random() * 0.8 + 0.6;
-        p.speedX = Math.random() * 0.6 + 0.3;
-        p.opacity = Math.random() * 0.3 + 0.6;
-      }
-    }
-    requestAnimationFrame(updatePetals);
-  }
-  requestAnimationFrame(updatePetals);
-
-
-  // ----- TILT & INTERSECTION OBSERVER LOGIC -----
   const glow = document.getElementById('cursorGlow');
   window.addEventListener('mousemove', (e) => {
     glow.style.left = e.clientX + 'px';
@@ -626,6 +523,47 @@
     });
   }, { threshold: 0.3 });
   sections.forEach(s=>navIo.observe(s));
+</script>
+<script>
+  // --- HIỆU ỨNG ĐỘNG: CÁNH HOA ĐÀO RƠI TRÊN NỀN BÀI VIẾT ---
+  function createSakura() {
+    const sakura = document.createElement('div');
+    sakura.style.position = 'fixed';
+    sakura.style.top = '-10px';
+    // Phát ngẫu nhiên vị trí xuất hiện theo chiều ngang màn hình
+    sakura.style.left = Math.random() * 100 + 'vw'; 
+    // Kích thước ngẫu nhiên từ 8px đến 16px
+    const size = Math.random() * 8 + 8;
+    sakura.style.width = size + 'px';
+    sakura.style.height = size + 'px';
+    // Sử dụng màu hồng cánh hoa đào đậm tạo độ tương phản tốt với nền
+    sakura.style.backgroundColor = '#EFA0BB'; 
+    sakura.style.borderRadius = '50% 0 50% 50%'; // Tạo hình dáng giống cánh hoa
+    sakura.style.opacity = Math.random() * 0.5 + 0.4;
+    sakura.style.pointerEvents = 'none';
+    sakura.style.zIndex = '0'; // Nằm dưới các thẻ nội dung chính
+    
+    // Tạo chuyển động ngẫu nhiên bằng CSS Animation trực tiếp
+    const duration = Math.random() * 6 + 6; // Thời gian rơi từ 6s - 12s
+    const spin = Math.random() * 360;
+    
+    sakura.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
+    document.body.appendChild(sakura);
+
+    // Kích hoạt hiệu ứng rơi và lắc lư sau khi phần tử được thêm vào DOM
+    setTimeout(() => {
+      sakura.style.transform = `translateY(105vh) translateX(${(Math.random() - 0.5) * 200}px) rotate(${spin + 720}deg)`;
+      sakura.style.opacity = '0';
+    }, 50);
+
+    // Xóa cánh hoa sau khi rơi hoàn tất để tránh làm nặng trang web
+    setTimeout(() => {
+      sakura.remove();
+    }, duration * 1000);
+  }
+
+  // Cứ mỗi 600 mili-giây (0.6 giây) sẽ tự tạo thêm một cánh hoa mới
+  setInterval(createSakura, 600);
 </script>
 </body>
 </html>
