@@ -2,26 +2,26 @@
    1. VARIABLES & SYSTEM SETUP
    ========================================================================== */
 :root {
-  --cream: #FCFBF8;
-  --pink-pale: #FDEEF3;
-  --pink-soft: #FAD4E0;
-  --pink-mid: #EFA0BB;
-  --green-pale: #EBF6EC;
-  --green-soft: #CBEAD3;
-  --green-mid: #8FCBA0;
-  --peach: #F7C99A;
-  --peach-deep: #EDA05C;
-  --ink: #46414C;
-  --ink-soft: #837C8C;
-  --white-soft: #FFFFFF;
-  --shadow-soft: 0 20px 40px -22px rgba(90, 70, 90, 0.22);
-  --radius-lg: 28px;
-  --radius-sm: 18px;
-}
-
-* { 
-  box-sizing: border-box; 
-}
+    /* Thay đổi dải màu nền đậm đà, rõ nét và có chiều sâu hơn */
+    --cream: #FDFBF4;
+    --pink-pale: #FBCEDF;  /* Đậm hơn màu #FDEEF3 cũ */
+    --green-pale: #CBEAD3; /* Đậm hơn màu #EBF6EC cũ */
+    --pink-soft: #F9A8C4;
+    --pink-mid: #EFA0BB;
+    --green-soft: #A3D9B5;
+    --green-mid: #8FCBA0;
+    --peach: #F5B06B;
+    --peach-deep: #EDA05C;
+    --ink: #3D3842;
+    --ink-soft: #726A7A;
+    --white-soft: #FFFFFF;
+    --shadow-soft: 0 20px 40px -22px rgba(90, 70, 90, 0.3); /* Đậm bóng đổ để nổi bật khối */
+    --radius-lg: 26px;
+    --radius-sm: 16px;
+    --sidebar-w: 264px;
+  }
+*{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
 
 html { 
   scroll-behavior: smooth; 
@@ -37,16 +37,19 @@ html {
   }
 }
 
-body {
-  margin: 0; 
-  font-family: 'Quicksand', sans-serif; 
-  color: var(--ink);
-  background: linear-gradient(150deg, var(--cream) 0%, var(--pink-pale) 35%, var(--green-pale) 70%, #FFFDF5 100%);
-  background-attachment: fixed; 
-  overflow-x: hidden; 
-  position: relative;
+body{
+    margin: 0; font-family: 'Quicksand', sans-serif; color: var(--ink);
+    /* Chuyển sang dải màu đậm, tăng độ tương phản */
+    background: linear-gradient(135deg, var(--cream), var(--pink-pale), var(--green-pale), var(--pink-soft), var(--cream));
+    background-size: 400% 400%; /* Tăng kích thước để dải màu chuyển động mượt hơn */
+    animation: bgFlow 12s ease-in-out infinite; /* Đẩy nhanh thời gian từ 20s xuống 12s để thấy rõ hiệu ứng chuyển động */
+    overflow-x: hidden;
 }
-
+@keyframes bgFlow{ 
+    0%{ background-position: 0% 50%; } 
+    50%{ background-position: 100% 50%; } 
+    100%{ background-position: 0% 50%; } 
+  }
 h1, h2, h3, .display { 
   font-family: 'Baloo 2', sans-serif; 
   font-weight: 700; 
